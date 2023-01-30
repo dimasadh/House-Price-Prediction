@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static', filename='css/style.css') }}">
+    <script src='main.js'></script>
+</head>
+<body>
+    <form action="{{ url_for('submit') }}" method="post">
+
+        <label for='MSSubClass'>MS Sub Class:</label> 
+        <input type='number' id='MSSubClass' value= 20  name='MSSubClass'><br>
+
+        <label for='MSZoning'>MS Zoning:</label> 
+        <input type='text' id='MSZoning' value= RL  name='MSZoning'><br>
+
+        <label for='LotFrontage'>Lot Frontage:</label> 
+        <input type='number' id='LotFrontage' value= 141.0  name='LotFrontage'><br>
+
+        <label for='LotArea'>Lot Area:</label> 
+        <input type='number' id='LotArea' value= 31770  name='LotArea'><br>
+
+        <label for='Street'>Street:</label> 
+        <input type='text' id='Street' value= Pave  name='Street'><br>
+
+        <label for='Alley'>Alley:</label> 
+        <input type='text' id='Alley' value= nan  name='Alley'><br>
+
+        <label for='LotShape'>Lot Shape:</label> 
+        <input type='text' id='LotShape' value= IR1  name='LotShape'><br>
+
+        <label for='LandContour'>Land Contour:</label> 
+        <input type='text' id='LandContour' value= Lvl  name='LandContour'><br>
+
+        <label for='Utilities'>Utilities:</label> 
+        <input type='text' id='Utilities' value= AllPub  name='Utilities'><br>
+
+        <label for='LotConfig'>Lot Config:</label> 
+        <input type='text' id='LotConfig' value= Corner  name='LotConfig'><br>
+
+        <label for='LandSlope'>Land Slope:</label> 
+        <input type='text' id='LandSlope' value= Gtl  name='LandSlope'><br>
+
+        <label for='Neighborhood'>Neighborhood:</label> 
+        <input type='text' id='Neighborhood' value= NAmes  name='Neighborhood'><br>
+
+        <label for='Condition1'>Condition 1:</label> 
+        <input type='text' id='Condition1' value= Norm  name='Condition1'><br>
+
+        <label for='Condition2'>Condition 2:</label> 
+        <input type='text' id='Condition2' value= Norm  name='Condition2'><br>
+
+        <label for='BldgType'>Building Type:</label> 
+        <input type='text' id='BldgType' value= 1Fam  name='BldgType'><br>
+
+        <label for='HouseStyle'>House Style:</label> 
+        <input type='text' id='HouseStyle' value= 1Story  name='HouseStyle'><br>
+
+        <label for='OverallQual'>Overall Quality:</label> 
+        <input type='number' id='OverallQual' value= 6  name='OverallQual'><br>
+
+        <label for='OverallCond'>Overall Condition:</label> 
+        <input type='number' id='OverallCond' value= 5  name='OverallCond'><br>
+
+        <label for='YearBuilt'>Year Built:</label> 
+        <input type='number' id='YearBuilt' value= 1960  name='YearBuilt'><br>
+
+        <label for='YearRemod/Add'>Year Remodel:</label> 
+        <input type='number' id='YearRemod/Add' value= 1960  name='YearRemod/Add'><br>
+
+        <label for='RoofStyle'>Roof Style:</label> 
+        <input type='text' id='RoofStyle' value= Hip  name='RoofStyle'><br>
+
+        <label for='RoofMatl'>Roof Material:</label> 
+        <input type='text' id='RoofMatl' value= CompShg  name='RoofMatl'><br>
+
+        <label for='Exterior1st'>Exterior 1st:</label> 
+        <input type='text' id='Exterior1st' value= BrkFace  name='Exterior1st'><br>
+
+        <label for='Exterior2nd'>Exterior 2nd:</label> 
+        <input type='text' id='Exterior2nd' value= Plywood  name='Exterior2nd'><br>
+
+        <label for='MasVnrType'>Masonry Veneer Type:</label> 
+        <input type='text' id='MasVnrType' value= Stone  name='MasVnrType'><br>
+
+        <label for='MasVnrArea'>Masonry Veneer Area:</label> 
+        <input type='number' id='MasVnrArea' value= 112.0  name='MasVnrArea'><br>
+
+        <label for='ExterQual'>Exterior Quality:</label> 
+        <input type='text' id='ExterQual' value= TA  name='ExterQual'><br>
+
+        <label for='ExterCond'>Exterior Condition:</label> 
+        <input type='text' id='ExterCond' value= TA  name='ExterCond'><br>
+
+        <label for='Foundation'>Foundation:</label> 
+        <input type='text' id='Foundation' value= CBlock  name='Foundation'><br>
+
+        <label for='BsmtQual'>Basement Quality:</label> 
+        <input type='text' id='BsmtQual' value= TA  name='BsmtQual'><br>
+
+        <label for='BsmtCond'>Basement Condition:</label>  
+        <input type='text' id='BsmtCond' value= Gd  name='BsmtCond'><br>
+
+        <label for='BsmtExposure'>Basement Exposure:</label> 
+        <input type='text' id='BsmtExposure' value= Gd  name='BsmtExposure'><br>
+
+        <label for='BsmtFinType1'>Basement Finished Type 1:</label> 
+        <input type='text' id='BsmtFinType1' value= BLQ  name='BsmtFinType1'><br>
+
+        <label for='BsmtFinSF1'>Basement Finished Square Feet 1:</label> 
+        <input type='number' id='BsmtFinSF1' value= 639.0  name='BsmtFinSF1'><br>
+
+        <label for='BsmtFinType2'>Basement Finished Type 2:</label> 
+        <input type='text' id='BsmtFinType2' value= Unf  name='BsmtFinType2'><br>
+
+        <label for='BsmtFinSF2'>Basement Finished Square Feet 2:</label> 
+        <input type='number' id='BsmtFinSF2' value= 0.0  name='BsmtFinSF2'><br>
+
+        <label for='BsmtUnfSF'>Basement Unfinished Square Feet:</label> 
+        <input type='number' id='BsmtUnfSF' value= 441.0  name='BsmtUnfSF'><br>
+
+        <label for='TotalBsmtSF'>Total Basement Square Feet:</label> 
+        <input type='number' id='TotalBsmtSF' value= 1080.0  name='TotalBsmtSF'><br>
+
+        <label for='Heating'>Heating:</label> 
+        <input type='text' id='Heating' value= GasA  name='Heating'><br>
+
+        <label for='HeatingQC'>Heating Quality and Condition:</label> 
+        <input type='text' id='HeatingQC' value= Fa  name='HeatingQC'><br>
+
+        <label for='CentralAir'>Central Air:</label> 
+        <input type='text' id='CentralAir' value= Y  name='CentralAir'><br>
+
+        <label for='Electrical'>Electrical:</label> 
+        <input type='text' id='Electrical' value= SBrkr  name='Electrical'><br>
+
+        <label for='1stFlrSF'>1st Floor Square Feet:</label> 
+        <input type='number' id='1stFlrSF' value= 1656  name='1stFlrSF'><br>
+
+        <label for='2ndFlrSF'>2nd Floor Square Feet:</label> 
+        <input type='number' id='2ndFlrSF' value= 0  name='2ndFlrSF'><br>
+
+        <label for='LowQualFinSF'>Low Quality Finished Square Feet:</label> 
+        <input type='number' id='LowQualFinSF' value= 0  name='LowQualFinSF'><br>
+
+        <label for='GrLivArea'>Ground Living Area:</label> 
+        <input type='number' id='GrLivArea' value= 1656  name='GrLivArea'><br>
+
+        <label for='BsmtFullBath'>Basement Full Bathroom:</label> 
+        <input type='number' id='BsmtFullBath' value= 1.0  name='BsmtFullBath'><br>
+
+        <label for='BsmtHalfBath'>Basement Half Bathroom:</label> 
+        <input type='number' id='BsmtHalfBath' value= 0.0  name='BsmtHalfBath'><br>
+
+        <label for='FullBath'>Full Bathroom:</label> 
+        <input type='number' id='FullBath' value= 1  name='FullBath'><br>
+
+        <label for='HalfBath'>Half Bathroom:</label> 
+        <input type='number' id='HalfBath' value= 0  name='HalfBath'><br>
+
+        <label for='BedroomAbvGr'>Bedroom:</label> 
+        <input type='number' id='BedroomAbvGr' value= 3  name='BedroomAbvGr'><br>
+
+        <label for='KitchenAbvGr'>Kitchen:</label> 
+        <input type='number' id='KitchenAbvGr' value= 1  name='KitchenAbvGr'><br>
+
+        <label for='KitchenQual'>Kitchen Quality:</label> 
+        <input type='text' id='KitchenQual' value= TA  name='KitchenQual'><br>
+
+        <label for='TotRmsAbvGrd'>Total Rooms Above Ground:</label> 
+        <input type='number' id='TotRmsAbvGrd' value= 7  name='TotRmsAbvGrd'><br>
+
+        <label for='Functional'>Functional:</label> 
+        <input type='text' id='Functional' value= Typ  name='Functional'><br>
+
+        <label for='Fireplaces'>Fireplaces:</label> 
+        <input type='number' id='Fireplaces' value= 2  name='Fireplaces'><br>
+
+        <label for='FireplaceQu'>Fireplace Quality:</label> 
+        <input type='text' id='FireplaceQu' value= Gd  name='FireplaceQu'><br>
+
+        <label for='GarageType'>Garage Type:</label> 
+        <input type='text' id='GarageType' value= Attchd  name='GarageType'><br>
+
+        <label for='GarageYrBlt'>Garage Year Built:</label> 
+        <input type='number' id='GarageYrBlt' value= 1960.0  name='GarageYrBlt'><br>
+
+        <label for='GarageFinish'>Garage Finish:</label> 
+        <input type='text' id='GarageFinish' value= Fin  name='GarageFinish'><br>
+
+        <label for='GarageCars'>Garage Cars:</label> 
+        <input type='number' id='GarageCars' value= 2.0  name='GarageCars'><br>
+
+        <label for='GarageArea'>Garage Area:</label> 
+        <input type='number' id='GarageArea' value= 528.0  name='GarageArea'><br>
+
+        <label for='GarageQual'>Garage Qual:</label> 
+        <input type='text' id='GarageQual' value= TA  name='GarageQual'><br>
+
+        <label for='GarageCond'>Garage Cond:</label> 
+        <input type='text' id='GarageCond' value= TA  name='GarageCond'><br>
+
+        <label for='PavedDrive'>Paved Drive:</label> 
+        <input type='text' id='PavedDrive' value= P  name='PavedDrive'><br>
+
+        <label for='WoodDeckSF'>Wood Deck Square Feet:</label> 
+        <input type='number' id='WoodDeckSF' value= 210  name='WoodDeckSF'><br>
+
+        <label for='OpenPorchSF'>Open Porch Square Feet:</label> 
+        <input type='number' id='OpenPorchSF' value= 62  name='OpenPorchSF'><br>
+
+        <label for='EnclosedPorch'>Enclosed Porch:</label> 
+        <input type='number' id='EnclosedPorch' value= 0  name='EnclosedPorch'><br>
+
+        <label for='3SsnPorch'>3 Season Porch:</label> 
+        <input type='number' id='3SsnPorch' value= 0  name='3SsnPorch'><br>
+
+        <label for='ScreenPorch'>Screen Porch:</label> 
+        <input type='number' id='ScreenPorch' value= 0  name='ScreenPorch'><br>
+
+        <label for='PoolArea'>Pool Area:</label> 
+        <input type='number' id='PoolArea' value= 0  name='PoolArea'><br>
+
+        <label for='PoolQC'>Pool Quality:</label> 
+        <input type='text' id='PoolQC' value= nan  name='PoolQC'><br>
+
+        <label for='Fence'>Fence:</label> 
+        <input type='text' id='Fence' value= nan  name='Fence'><br>
+
+        <label for='MiscFeature'>Miscellaneous Feature:</label> 
+        <input type='text' id='MiscFeature' value= nan  name='MiscFeature'><br>
+
+        <label for='MiscVal'>Miscellaneous Value:</label> 
+        <input type='number' id='MiscVal' value= 0  name='MiscVal'><br>
+
+        <label for='MoSold'>Month Sold:</label> 
+        <input type='number' id='MoSold' value= 5  name='MoSold'><br>
+
+        <label for='YrSold'>Year Sold:</label> 
+        <input type='number' id='YrSold' value= 2010  name='YrSold'><br>
+
+        <label for='SaleType'>Sale Type:</label> 
+        <input type='text' id='SaleType' value= WD   name='SaleType'><br>
+
+        <label for='SaleCondition'>Sale Condition:</label> 
+        <input type='text' id='SaleCondition' value= Normal  name='SaleCondition'><br>
+
+        <label for='SalePrice'>Sale Price:</label> 
+        <input type='number' id='SalePrice' value= 215000  name='SalePrice'><br>
+      
+        <input type="submit" value="Predict" name="submit">
+    </form>
+</body>
+</html>
