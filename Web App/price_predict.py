@@ -83,21 +83,14 @@ def preprocess(data):
             data['CPI'] = cpi['CPI'][y]
             break
 
-    #-----Adding New Feature-----#
-    data["TotalArea"] = float(data["TotalBsmtSF"]) + float(data["1stFlrSF"]) + float(data["2ndFlrSF"]) + float(data["GarageArea"])
-    data["Bsmt"] = float(data["BsmtFinSF1"]) + float(data["BsmtFinSF2"]) + float(data["BsmtUnfSF"])
-    data["PorchArea"] = float(data["OpenPorchSF"])+float(data["EnclosedPorch"])+float(data["3SsnPorch"])+float(data["ScreenPorch"])
-    data['Total_Bathrooms'] = (float(data['FullBath']) + (0.5 * float(data['HalfBath'])) +
-                                float(data['BsmtFullBath']) + (0.5 * float(data['BsmtHalfBath'])))
-
     ## log transformation
     variableToTransform = ['MiscVal', 'LotArea', 'LowQualFinSF',
        'Heating', 'Condition2', '3SsnPorch', 'RoofMatl', 'LandSlope',
        'MiscFeature', 'KitchenAbvGr', 'BsmtFinSF2', 'EnclosedPorch',
        'ScreenPorch', 'BsmtHalfBath', 'Condition1', 'MasVnrArea',
-       'OpenPorchSF', 'PorchArea', 'BldgType', 'WoodDeckSF',
-       'RoofStyle', 'LotFrontage', '1stFlrSF', 'BsmtFinSF1', 'MSSubClass',
-       'TotalArea', 'GrLivArea', 'Bsmt', 'TotalBsmtSF', 'BsmtUnfSF',
+       'OpenPorchSF', 'BldgType', 'WoodDeckSF', 'RoofStyle',
+       'RoofStyle', 'LotFrontage', '1stFlrSF', 'BsmtFinSF1', 'MSSubClass', 
+       'GrLivArea', 'TotalBsmtSF', 'BsmtUnfSF',
        '2ndFlrSF', 'TotRmsAbvGrd', 'Fireplaces', 'HalfBath', 'GarageType',
        'BsmtFullBath', 'OverallCond']
 

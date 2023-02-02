@@ -39,15 +39,14 @@ def load_model(filename):
 
 #%% Get all dataset from files
 #-----Getting Dataset-----#
-train = pd.read_csv(INPUT_PATH + 'AmesHousing.csv')
-# test = pd.read_csv(INPUT_PATH + 'test.csv')
-train.drop(columns = ['Order'], axis=1, inplace=True)
-train.drop(columns = ['PID'], axis=1, inplace=True)
-train.columns = train.columns.str.replace(' ', '')
+all_data = pd.read_csv(INPUT_PATH + 'AmesHousing.csv')
+all_data.drop(columns = ['Order'], axis=1, inplace=True)
+all_data.drop(columns = ['PID'], axis=1, inplace=True)
+all_data.columns = all_data.columns.str.replace(' ', '')
 
-quantitive = [f for f in train.columns if train.dtypes[f] != 'object']
+quantitive = [f for f in all_data.columns if all_data.dtypes[f] != 'object']
 quantitive.remove('SalePrice')
-qualitative = [f for f in train.columns if train.dtypes[f] == 'object']
+qualitative = [f for f in all_data.columns if all_data.dtypes[f] == 'object']
 
 print('Quantitive Data :')
 print(quantitive)
@@ -58,23 +57,23 @@ print(qualitative)
 def input_cpi():
     cpi = pd.read_csv(INPUT_PATH + 'cpi.csv')
     cpi_temp = []
-    for x in train.index:
+    for x in all_data.index:
         for y in cpi.index:
-            if train['YrSold'][x] == cpi['Year'][y] and train['MoSold'][x] == cpi['Month'][y]:
+            if all_data['YrSold'][x] == cpi['Year'][y] and all_data['MoSold'][x] == cpi['Month'][y]:
                 cpi_temp.append(cpi['CPI'][y])
                 break
-    train['CPI'] = cpi_temp
+    all_data['CPI'] = cpi_temp
 
 # Add inflation data annual
 def input_annual_cpi():
     cpi = pd.read_csv(INPUT_PATH + 'cpi_annual.csv')
     cpi_temp = []
-    for x in train.index:
+    for x in all_data.index:
         for y in cpi.index:
-            if train['YrSold'][x] == cpi['Year'][y]:
+            if all_data['YrSold'][x] == cpi['Year'][y]:
                 cpi_temp.append(cpi['CPI'][y])
                 break
-    train['CPI'] = cpi_temp
+    all_data['CPI'] = cpi_temp
 
 input_cpi()
 
@@ -82,12 +81,12 @@ input_cpi()
 
 # Check Distribution Normal
 fig, ax = plt.subplots(figsize=(12,6))
-sns.histplot(train['SalePrice'], kde=True)
+sns.histplot(all_data['SalePrice'], kde=True)
 
 #%%
 # Check Pearson Correlation
 fig, ax = plt.subplots(figsize=(30,25))
-mat = train.corr('pearson')
+mat = all_data.corr('pearson')
 mask = np.triu(np.ones_like(mat, dtype=bool))
 cmap=sns.diverging_palette(230,20, as_cmap=True)
 sns.heatmap(mat, mask=mask, cmap=cmap, vmax=1, center=0, annot = True,
@@ -100,19 +99,19 @@ print(high_corr)
 #%%
 # SalePrice and OverallQual
 plt.figure(figsize=(12,6))
-plt.scatter(x=train['OverallQual'], y=train['SalePrice'])
+plt.scatter(x=all_data['OverallQual'], y=all_data['SalePrice'])
 plt.title("SalePrice and OverallQual")
 plt.xlabel("OverallQual", fontsize=13)
 plt.ylabel("SalePrice", fontsize=13)
 plt.ylim(0,800000)
 plt.show()
 figure, ax = plt.subplots(figsize = (12,6))
-sns.boxplot(data=train, x = 'OverallQual', y='SalePrice', ax = ax)
+sns.boxplot(data=all_data, x = 'OverallQual', y='SalePrice', ax = ax)
 plt.show()
 
 # SalePrice and GrLivArea
 plt.figure(figsize=(12,6))
-plt.scatter(x=train['GrLivArea'], y=train['SalePrice'])
+plt.scatter(x=all_data['GrLivArea'], y=all_data['SalePrice'])
 plt.title("SalePrice and GrLivArea")
 plt.xlabel("GrLivArea", fontsize=13)
 plt.ylabel("SalePrice", fontsize=13)
@@ -121,14 +120,14 @@ plt.show()
 
 ## SalePrice and Consumer Price Index
 # figure, ax = plt.subplots(figsize = (16,4))
-# sns.boxplot(data=train, x = 'CPI', y='SalePrice', ax = ax)
+# sns.boxplot(data=all_data, x = 'CPI', y='SalePrice', ax = ax)
 # plt.xticks(rotation=45)
 # plt.show()
 
 #%% Check dataset's type and count of missing values
 #-----Checking Missing Values-----#
 # train_test = pd.concat([train, test],axis=0, sort=False)
-train_test = train
+train_test = all_data
 
 # Looking at NaN % within the data
 
@@ -323,15 +322,17 @@ train_test = train_test.drop(outliers[0], axis = 0)
 # %% Merge data back into train and test
 
 #-----Merging Data-----#
-train = pd.get_dummies(train_test)
+all_data = pd.get_dummies(train_test)
+
+
 
 #----------- Start to make the model----------#
 #%% Prepare train data
 #-----Preparing Data for Modeling-----#
 
-X = train.drop(['SalePrice'],axis=1)
+X = all_data.drop(['SalePrice'],axis=1)
 # X.drop(['CPI'], axis=1, inplace=True)
-y = train['SalePrice']
+y = all_data['SalePrice']
 
 X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.30, random_state=42)
 print('X_train Shape :',X_train.shape)
@@ -491,17 +492,18 @@ for i in range(5):
     ax[i].set_ylabel(model_name[i])
     ax[i].grid()
 
-# Measuring Inflation Correlation
+
+# #-----Measuring Inflation Correlation-----#
 
 # #%%
 # #-----Clustering with Affinity Propagation-----#
 # from sklearn.cluster import AffinityPropagation
 # from sklearn import metrics
 
-# cluster_sale_price = train.loc[:,'SalePrice']
-# cluster_sale_year = train.loc[:, 'YrSold']
-# cluster_sale_month = train.loc[:, 'MoSold']
-# cluster_data = train.drop(['SalePrice', 'GarageYrBlt', 'YearBuilt', 'YearRemod/Add', 'YrSold', 'MoSold'], axis=1)
+# cluster_sale_price = all_data.loc[:,'SalePrice']
+# cluster_sale_year = all_data.loc[:, 'YrSold']
+# cluster_sale_month = all_data.loc[:, 'MoSold']
+# cluster_data = all_data.drop(['SalePrice', 'GarageYrBlt', 'YearBuilt', 'YearRemod/Add', 'YrSold', 'MoSold'], axis=1)
   
 # # Compute Affinity Propagation
 # af = AffinityPropagation(damping = 0.9, max_iter = 3000, preference=-400000).fit(cluster_data)
@@ -540,10 +542,10 @@ for i in range(5):
 # from sklearn.cluster import KMeans
 # from scipy.spatial.distance import cdist
 
-# cluster_sale_price = train.loc[:,'SalePrice']
-# cluster_sale_year = train.loc[:, 'YrSold']
-# cluster_sale_month = train.loc[:, 'MoSold']
-# cluster_data = train.drop(['SalePrice', 'GarageYrBlt', 'YearBuilt', 'YearRemod/Add', 'YrSold', 'MoSold'], axis=1)
+# cluster_sale_price = all_data.loc[:,'SalePrice']
+# cluster_sale_year = all_data.loc[:, 'YrSold']
+# cluster_sale_month = all_data.loc[:, 'MoSold']
+# cluster_data = all_data.drop(['SalePrice', 'GarageYrBlt', 'YearBuilt', 'YearRemod/Add', 'YrSold', 'MoSold'], axis=1)
 
 # distortions = []
 # inertias = []
@@ -581,10 +583,14 @@ for i in range(5):
 # cluster_data['cluster'] = pd.DataFrame(kmean.labels_).loc[:, 0]
 # cluster_data['SalePrice'] = cluster_sale_price.loc[:]
 # cluster_data['YrSold'] = cluster_sale_year.loc[:]
+
+# ## Set total label as range
 # for x in range (5):
 #     temp = cluster_data[(cluster_data['cluster'] == x)]
 #     corr = temp.drop(columns=['cluster'], axis=1).corr('pearson')
 #     print('label ', x , ': ', corr['SalePrice']['CPI'])
+
+# ## Set total label as range
 # for label_idx in range(5):
 #     print("Count data with label " + str(label_idx) + " is " + 
 #         str(len(cluster_data[(cluster_data['cluster'] == label_idx)])) +
@@ -592,9 +598,10 @@ for i in range(5):
 #     )
 
 
-
+# ### Grafik
 # # %%
 # year_col = [2006, 2007, 2008, 2009, 2010]
+# ## Set total label as range
 # for label_idx in range(5):
 #     for year in year_col:
 #         print('Label ' + str(label_idx) + ' SalePrice mean value at ' + str(year) + 
@@ -605,6 +612,7 @@ for i in range(5):
 # cpi_data = pd.read_csv(INPUT_PATH + 'cpi_annual.csv')
 # str_year = [str(i) for i in year_col]
 # cluster_dict = []
+# ## Set total label as range
 # for label_idx in range(5):
 #     temp = {}
 #     for year in year_col:
@@ -635,5 +643,5 @@ for i in range(5):
   
 # # To load the display window
 # plt.show()
-# %%
+# # %%
 
